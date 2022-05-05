@@ -11,18 +11,30 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.exam22.friendifyer.databinding.ActivityMainBinding
+import com.exam22.friendifyer.databinding.CellExtendedBinding
 import com.exam22.friendifyer.models.Friend
 import com.exam22.friendifyer.models.FriendList
 
-
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_friendlist)
+        val adapter = FriendAdapter(this, FriendList().getAllFriends())
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
 
-        val adapter = FriendAdapter(this, FriendList.getAllFriends())
+        setContentView(view)
+
+        binding.lvFriendList.adapter = adapter
+
+
+
 
     }
+
 
     internal class FriendAdapter(context: Context, private val friends: Array<Friend>
     ) : ArrayAdapter<Friend>(context, 0, friends){
@@ -30,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             Color.parseColor("#AAAAAA"),
             Color.parseColor("#CCCCCC")
         )
+        private lateinit var binding: CellExtendedBinding
 
         override fun getView(position: Int, v: View?, parent: ViewGroup): View {
             var v1: View? = v
@@ -39,15 +52,17 @@ class MainActivity : AppCompatActivity() {
 
             }
             val resView: View = v1!!
+
             resView.setBackgroundColor(colours[position % colours.size])
             val f = friends[position]
             val nameView = resView.findViewById<TextView>(R.id.tvNameExt)
             val phoneView = resView.findViewById<TextView>(R.id.tvPhoneExt)
-            val favoriteView = resView.findViewById<ImageView>(R.id.imgFavoriteExt)
+            val locationView = resView.findViewById<TextView>(R.id.tvLocationExt)
+            val profileView = resView.findViewById<ImageView>(R.id.profilepicture)
             nameView.text = f.name
             phoneView.text = f.phone
-
-            favoriteView.setImageResource(if (f.isFavorite) R.drawable.ok else R.drawable.notok)
+            locationView.text = f.location.adress
+            profileView.setImageResource(if (f.profilePicture == null) R.drawable.no_profile else R.drawable.no_profile)
 
             return resView
         }
