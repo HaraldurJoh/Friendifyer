@@ -2,12 +2,14 @@ package com.exam22.friendifyer
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.ConsoleMessage
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -16,27 +18,38 @@ import com.exam22.friendifyer.databinding.ActivityMainBinding
 import com.exam22.friendifyer.models.Friend
 import com.exam22.friendifyer.models.FriendsList
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.Console
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val adapter = ListAdapter(this, FriendsList().getAll())
-
         lvFriendList.adapter = adapter
-        /*
         lvFriendList.isClickable
-        lvFriendList.setOnItemClickListener(AdapterView.OnItemClickListener(){
-            override fun onItemClick(parent: AdapterView<?>, v: View?, Position: Int, id: Long){
+        lvFriendList.setOnItemClickListener{_,_,pos, _ -> onFriendClick(pos)}
 
-            }
+
+    }
+
+    private fun onFriendClick(pos: Int) {
+        val clickedFriend = lvFriendList.getItemAtPosition(pos) as Friend
+        val newBundle = Bundle()
+        newBundle.putInt("ChosenFriend", clickedFriend.id)
+        startFriendActivity(newBundle)
+    }
+
+    private fun startFriendActivity(b: Bundle) {
+        val newIntent = Intent(this, FriendActivity::class.java)
+        newIntent.putExtras(b)
+        try {
+            startActivity(newIntent)
+        } catch (e: Exception){
+            println(e)
         }
 
-         */
     }
 
     internal class ListAdapter(context: Context, private val friends : Array<Friend>) : ArrayAdapter<Friend>(context, 0, friends){

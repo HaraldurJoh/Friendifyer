@@ -3,13 +3,13 @@ package com.exam22.friendifyer.models
 class FriendsList {
 
     val mFriends = arrayOf<Friend>(
-        Friend("Thyregod","63499037", true),
-        Friend("Dundvig","40832243", true),
-        Friend("Grasland","78914416", true),
-        Friend("Peder","88467811", true),
-        Friend("Aben","57382219", true),
-        Friend("Mikael","20579997", true),
-        Friend("Quapper","60272387", true),
+        Friend(1,"Thyregod","63499037", false),
+        Friend(2,"Dundvig","40832243", true),
+        Friend(3, "Grasland","78914416", true),
+        Friend(4,"Peder","88467811", false),
+        Friend(5,"Aben","57382219", false),
+        Friend(6,"Mikael","20579997", false),
+        Friend(7,"Quapper","60272387", true),
 
     )
 
