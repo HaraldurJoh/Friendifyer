@@ -36,20 +36,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun onFriendClick(pos: Int) {
         val clickedFriend = lvFriendList.getItemAtPosition(pos) as Friend
-        val newBundle = Bundle()
-        newBundle.putInt("ChosenFriend", clickedFriend.id)
-        startFriendActivity(newBundle)
+        val b = Bundle()
+        b.putString("name",clickedFriend.name)
+        b.putString("phone",clickedFriend.phone)
+        b.putBoolean("bestFriend",clickedFriend.bestFriend)
+        startFriendActivity(b)
     }
 
     private fun startFriendActivity(b: Bundle) {
         val newIntent = Intent(this, FriendActivity::class.java)
         newIntent.putExtras(b)
-        try {
-            startActivity(newIntent)
-        } catch (e: Exception){
-            println(e)
-        }
-
+        startActivity(newIntent)
     }
 
     internal class ListAdapter(context: Context, private val friends : Array<Friend>) : ArrayAdapter<Friend>(context, 0, friends){
