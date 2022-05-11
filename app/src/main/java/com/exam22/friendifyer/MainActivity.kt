@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onFriendClick(pos: Int) {
         val clickedFriend = lvFriendList.getItemAtPosition(pos) as Friend
+        println(clickedFriend.name)
         val b = Bundle()
         b.putString("name",clickedFriend.name)
         b.putString("phone",clickedFriend.phone)
