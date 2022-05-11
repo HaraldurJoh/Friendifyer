@@ -46,8 +46,8 @@
                 android:text="Full Name"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/name_profile"
+            <EditText
+                android:id="@+id/tf_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chris Morris"
@@ -79,8 +79,8 @@
                 android:text="Phone Number"
                 android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/phone_profile"
+            <EditText
+                android:id="@+id/tf_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+91-999999999"
@@ -110,32 +110,77 @@
         android:id="@+id/relative_house_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/relative_phone"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        android:layout_below="@id/relative_phone"
         android:paddingVertical="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="70dp">
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Best Friend"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/tf_bestFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Best Friend"
-                android:textSize="12sp"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirm Edit?"
+                    android:textSize="12sp" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="OnEditClick"
+                    android:text="Edit" />
+            </LinearLayout>
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/bestFriend_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yes"
-                android:textSize="26sp"
-                android:textColor="@color/black"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relative_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relative_house_no"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingVertical="10dp">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:orientation="vertical">
+
+
 
         </LinearLayout>
+
     </RelativeLayout>
 </RelativeLayout>

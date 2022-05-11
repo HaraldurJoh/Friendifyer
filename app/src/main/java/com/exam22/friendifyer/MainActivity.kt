@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         b.putString("name",clickedFriend.name)
         b.putString("phone",clickedFriend.phone)
         b.putBoolean("bestFriend",clickedFriend.bestFriend)
+        b.putInt("id",clickedFriend.id)
         startFriendActivity(b)
     }
 
