@@ -6,23 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".FriendActivity">
 
+
+        <Button
+            android:id="@+id/btnTakeNewPhoto"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:text="@string/take_photo" />
+
+
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/no_profile"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:src="@drawable/no_profile" />
+
 
     <TextView
         android:id="@+id/scode_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/profile_image"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:text="" />
+        android:text=""
+        android:textColor="@color/black" />
 
     <RelativeLayout
         android:id="@+id/relative_name"

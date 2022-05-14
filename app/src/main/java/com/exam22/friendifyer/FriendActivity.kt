@@ -1,5 +1,6 @@
 package com.exam22.friendifyer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -28,7 +29,9 @@ class FriendActivity : AppCompatActivity() {
 
     fun OnEditClick(view: View) {
 
-
-
     }
-}
+
+    private fun onClickTakePhoto() {
+
+        }
+    }
