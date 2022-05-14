@@ -31,7 +31,7 @@ class FriendActivity : AppCompatActivity() {
 
     }
 
-    private fun onClickTakePhoto() {
 
-        }
-    }
+    fun onPhotoClick(view: View) {}
+}
+
