@@ -126,7 +126,7 @@
                     android:background="@android:color/transparent"
                     android:maxWidth="70dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/sms" />
+                    android:src="@drawable/sms2" />
             </LinearLayout>
 
         </LinearLayout>
