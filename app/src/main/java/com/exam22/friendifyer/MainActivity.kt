@@ -17,9 +17,10 @@ import com.exam22.friendifyer.Data.BeFriend
 import com.exam22.friendifyer.Data.FriendRepoInDB
 import com.exam22.friendifyer.models.Friend
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.Serializable
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Serializable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,16 +83,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun test(s: Serializable){
+
+    }
 
     private fun onFriendClick(pos: Int) {
         val clickedFriend = lvFriendList.getItemAtPosition(pos) as BeFriend
         println(clickedFriend.name)
+        val intent = Intent(this, FriendActivity::class.java).apply {
+            putExtra("clicked", clickedFriend)
+        }
         val b = Bundle()
         b.putString("name",clickedFriend.name)
         b.putString("phone",clickedFriend.phone)
         b.putBoolean("bestFriend",clickedFriend.bestFriend)
         b.putInt("id",clickedFriend.id)
-        startFriendActivity(b)
+        startActivity(intent)
     }
 
     private fun onClickPerson(listView: AdapterView<*>, pos: Int) {
