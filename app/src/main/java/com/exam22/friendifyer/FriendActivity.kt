@@ -49,7 +49,6 @@ class FriendActivity : AppCompatActivity(), Serializable {
         sendIntent.data = Uri.parse("sms:$number")
         startActivity(sendIntent)
     }
-
     fun onEditClick(selectFriend: BeFriend) {
         var newFriendInfo = selectFriend
         newFriendInfo.name = tf_name.text.toString()
@@ -65,9 +64,9 @@ class FriendActivity : AppCompatActivity(), Serializable {
         fRep.update(friend)
 
     }
-
-
-    fun onPhotoClick(view: View) {}
-    fun OnEditClick(view: View) {}
+    fun onClickPhoto(view: View){
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
+    }
 }
 

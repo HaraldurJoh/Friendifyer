@@ -53,9 +53,9 @@ class CameraActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS )
         }
-        btnTakePhoto.setOnClickListener { OnClickTakePhoto() }
-        btnSavePhoto.setOnClickListener{ OnClickSave() }
-        btnExitPhoto.setOnClickListener{ OnClickExit () }
+        btnTakePhoto.setOnClickListener { onClickPhoto() }
+        btnSavePhoto.setOnClickListener{ onClickSave() }
+        btnExitPhoto.setOnClickListener{ onClickExit () }
         switchFlip.setOnCheckedChangeListener { compoundButton, b ->
             isFrontCamera = b
             startCamera()
@@ -64,13 +64,13 @@ class CameraActivity : AppCompatActivity() {
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
-    private fun OnClickSave() {
+    private fun onClickSave() {
         val data = Intent().apply { putExtra("friendPhoto", picturePath) }
         setResult(Activity.RESULT_OK, data)
         finish()
     }
 
-    private fun OnClickTakePhoto() {
+    private fun onClickPhoto() {
         btnSavePhoto.visibility = View.VISIBLE
 
         val imageCapture = imageCapture?: return
@@ -201,7 +201,7 @@ class CameraActivity : AppCompatActivity() {
             }
         }
         
-        private fun OnClickExit() {
+        private fun onClickExit() {
             if (!picturePath.contentEquals("")) {
                 picturePath = ""
                 takenPicture.visibility = View.INVISIBLE

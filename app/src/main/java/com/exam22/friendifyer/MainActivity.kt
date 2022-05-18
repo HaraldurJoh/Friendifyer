@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), Serializable {
 
     override fun onResume() {
         super.onResume()
-        setupDataObserver()
+        insertTestData()
     }
 
     private fun insertTestData(){
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity(), Serializable {
         fRep.getAll().observe(this, getAllObserver)
 
         lvFriendList.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ -> onFriendClick(pos)}
+
 
 
     }
@@ -133,4 +134,4 @@ class MainActivity : AppCompatActivity(), Serializable {
         }
     }
 
-}
+
