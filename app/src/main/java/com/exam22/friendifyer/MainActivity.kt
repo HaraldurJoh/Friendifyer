@@ -135,8 +135,14 @@ class MainActivity : AppCompatActivity(), Serializable {
             val imageView = resView.findViewById<ImageView>(R.id.profile_image)
             val nameView = resView.findViewById<TextView>(R.id.personName)
             val phoneNumber = resView.findViewById<TextView>(R.id.phoneNumber)
+            val bestFriend = resView.findViewById<TextView>(R.id.isBestFriend)
             nameView.text = f.name
             phoneNumber.text = f.phone
+            if (f.bestFriend){
+                bestFriend.text = "Best Friend"
+            } else {
+                bestFriend.text = "Friend"
+            }
 
 
             return resView
