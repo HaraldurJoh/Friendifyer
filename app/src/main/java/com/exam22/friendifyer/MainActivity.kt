@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         lvFriendList.adapter = adapter
         lvFriendList.isClickable
         lvFriendList.setOnItemClickListener{_,_,pos, _ -> onFriendClick(pos)}
-
-
     }
 
     private fun onFriendClick(pos: Int) {
@@ -77,4 +75,5 @@ class MainActivity : AppCompatActivity() {
             return resView
         }
     }
+
 }

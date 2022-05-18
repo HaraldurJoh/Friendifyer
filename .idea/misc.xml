@@ -11,7 +11,11 @@
         <entry key="..\:/School Work/Android/Friendifyer/app/src/main/res/layout/cell_extended.xml" value="0.29347826086956524" />
         <entry key="..\:/School Work/Android/Friendifyer/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Work/Friendifyer/app/src/main/res/layout/activity_camera.xml" value="0.35643115942028986" />
-        <entry key="..\:/Work/Friendifyer/app/src/main/res/layout/activity_friend.xml" value="0.3625" />
+        <entry key="..\:/Work/Friendifyer/app/src/main/res/layout/activity_friend.xml" value="0.1" />
+        <entry key="..\:/Work/Friendifyer/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Work/Friendifyer/app/src/main/res/layout/menu.xml" value="0.12132725430597771" />
+        <entry key="..\:/Work/Friendifyer/app/src/main/res/layout/options_menu.xml" value="0.12132725430597771" />
+        <entry key="..\:/Work/Friendifyer/app/src/main/res/menu/options_menu.xml" value="0.2" />
       </map>
     </option>
   </component>

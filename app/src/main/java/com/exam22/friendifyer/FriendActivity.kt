@@ -27,11 +27,14 @@ class FriendActivity : AppCompatActivity() {
 
     }
 
+    fun onClickPhoto(view: View){
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
+    }
+
     fun OnEditClick(view: View) {
 
     }
 
-
-    fun onPhotoClick(view: View) {}
 }
 
