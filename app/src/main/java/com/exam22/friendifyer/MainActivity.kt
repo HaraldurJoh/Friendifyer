@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.exam22.friendifyer.Data.FriendRepoInDB
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
 import java.util.*
+import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity(), Serializable {
 
@@ -23,15 +25,15 @@ class MainActivity : AppCompatActivity(), Serializable {
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
         insertTestData()
-        val fRep = FriendRepoInDB.get()
+        /*val fRep = FriendRepoInDB.get()
         val listOfFriend = fRep.getAll().value
         val adapterTwo = CustomListAdapter(this, listOfFriend)
 
         lvFriendList.adapter = adapterTwo
         lvFriendList.isClickable
         lvFriendList.setOnItemClickListener{_,_,pos, _ -> onFriendClick(pos)}
-
-        // setupDataObserver()
+        */
+        setupDataObserver()
 
     }
 
@@ -61,27 +63,24 @@ class MainActivity : AppCompatActivity(), Serializable {
          */
     }
 
-    /*
+
     private fun setupDataObserver() {
 
-        val mRep = FriendRepoInDB.get()
+        val fRep = FriendRepoInDB.get()
         val getAllObserver = Observer<List<BeFriend>>{ f ->
-            val adapter: ListAdapter = ArrayAdapter(
+            val adapter: ListAdapter = CustomListAdapter(
                 this,
-                android.R.layout.simple_list_item_1,
                 f)
             lvFriendList.adapter = adapter
             Log.d("xyz", "getAll observer notified")
 
         }
-        mRep.getAll().observe(this, getAllObserver)
+        fRep.getAll().observe(this, getAllObserver)
 
         lvFriendList.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ -> onFriendClick(pos)}
 
 
     }
-
-    */
 
     private fun test(s: Serializable){
 
