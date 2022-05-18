@@ -45,12 +45,14 @@ class FriendRepoInDB private constructor(private val context: Context){
                 instance = FriendRepoInDB(context)
             }
 
-            fun get(): FriendRepoInDB {
-                if (instance != null){
-                    return instance!!
-                }
-                throw IllegalStateException("Friend Repo not initialized")
+
+        }
+
+        fun get(): FriendRepoInDB {
+            if (instance != null){
+                return instance!!
             }
+            throw IllegalStateException("Friend Repo not initialized")
         }
     }
 }
