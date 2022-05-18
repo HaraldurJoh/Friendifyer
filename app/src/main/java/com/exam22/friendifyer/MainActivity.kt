@@ -6,18 +6,13 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import android.widget.*
-import androidx.lifecycle.LiveData
 import com.exam22.friendifyer.Data.BeFriend
 import com.exam22.friendifyer.Data.FriendRepoInDB
-import com.exam22.friendifyer.models.Friend
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,13 +21,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
         insertTestData()
-        /*
-        val adapter = ListAdapter(this, FriendsList().getAll())
-        lvFriendList.adapter = adapter
+        val fRep = FriendRepoInDB.get()
+        val listOfFriend = fRep.getAll().value
+        val adapterTwo = CustomListAdapter(this, listOfFriend)
+
+        lvFriendList.adapter = adapterTwo
         lvFriendList.isClickable
         lvFriendList.setOnItemClickListener{_,_,pos, _ -> onFriendClick(pos)}
-         */
-        setupDataObserver()
+
+        // setupDataObserver()
 
     }
 
@@ -62,7 +59,7 @@ class MainActivity : AppCompatActivity() {
          */
     }
 
-
+    /*
     private fun setupDataObserver() {
 
         val mRep = FriendRepoInDB.get()
@@ -81,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
+    */
 
     private fun onFriendClick(pos: Int) {
         val clickedFriend = lvFriendList.getItemAtPosition(pos) as BeFriend
@@ -110,9 +107,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(newIntent)
     }
 
-
-    /*
-    internal class ListAdapter(context: Context, private val friends: LiveData<List<BeFriend>>) : ArrayAdapter<BeFriend>(context, 0, friends){
+    internal class CustomListAdapter(context: Context, private val friends: List<BeFriend>) : ArrayAdapter<BeFriend>(context, 0, friends){
 
         private val colours = intArrayOf(
             Color.parseColor("#AAAAAA"),
@@ -138,7 +133,5 @@ class MainActivity : AppCompatActivity() {
             return resView
         }
     }
-
-     */
 
 }
