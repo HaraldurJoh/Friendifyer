@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="149dp"
         android:layout_centerHorizontal="true"
+        android:layout_height="125dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/no_profile" />
 
@@ -22,9 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_image"
         android:layout_marginLeft="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
         android:text="Take Photo"
         android:textSize="10dp"
         android:onClick="onClickPhoto"/>
+
 
 
 
@@ -55,6 +58,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/name_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Full Name"
@@ -84,22 +88,51 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="70dp">
+            android:layout_marginStart="70dp"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/number_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone Number"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/tf_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+91-999999999"
-                android:textSize="26sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCallFriend"
+                    android:layout_width="57dp"
+                    android:layout_height="54dp"
+                    android:layout_marginRight="5dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="70dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/phone" />
+
+                <ImageButton
+                    android:id="@+id/btnSMSFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="70dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sms2" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -112,12 +145,11 @@
         android:background="@color/white"/>
 
 
-
     <View
-        android:layout_below="@+id/relative_name"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/white"/>
+        android:layout_below="@+id/relative_name"
+        android:background="@color/white" />
 
 
     <RelativeLayout
@@ -141,6 +173,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/bestfriend_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Best Friend"
@@ -163,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/confirm_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Confirm Edit?"
@@ -173,6 +207,8 @@
                     android:onClick="OnEditClick"
                     android:text="Edit" />
             </LinearLayout>
+
+
         </LinearLayout>
 
     </RelativeLayout>

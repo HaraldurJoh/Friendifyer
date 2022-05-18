@@ -6,41 +6,94 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.ConsoleMessage
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
-import com.exam22.friendifyer.databinding.ActivityMainBinding
-import com.exam22.friendifyer.models.Friend
-import com.exam22.friendifyer.models.FriendsList
+import android.widget.*
+import com.exam22.friendifyer.Data.BeFriend
+import com.exam22.friendifyer.Data.FriendRepoInDB
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.Console
-import java.lang.Exception
+import java.io.Serializable
+import java.util.*
+import androidx.lifecycle.Observer
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Serializable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val adapter = ListAdapter(this, FriendsList().getAll())
-        lvFriendList.adapter = adapter
-        lvFriendList.isClickable
-        lvFriendList.setOnItemClickListener{_,_,pos, _ -> onFriendClick(pos)}
+        FriendRepoInDB.initialize(this)
+        insertTestData()
+
+        setupDataObserver()
+
+    }
+
+    private fun insertTestData(){
+        var hasRun = false
+        if(hasRun == false) {
+            val fRep = FriendRepoInDB.get()
+            fRep.clear()
+            fRep.insert(BeFriend(0,"Thyregod","63499037", false))
+            fRep.insert(BeFriend(0,"Dundvig","40832243", true))
+            fRep.insert(BeFriend(0,"Grasland","78914416", true))
+            fRep.insert(BeFriend(0,"Peder","88467811", false))
+            fRep.insert(BeFriend(0,"Aben","57382219", false))
+            fRep.insert(BeFriend(0,"Mikael","20579997", false))
+            fRep.insert(BeFriend(0,"Quapper","60272387", true))
+            hasRun = true
+        }
+
+
+    }
+
+
+    private fun setupDataObserver() {
+
+        val fRep = FriendRepoInDB.get()
+        val getAllObserver = Observer<List<BeFriend>>{ f ->
+            val adapter: ListAdapter = CustomListAdapter(
+                this,
+                f)
+            lvFriendList.adapter = adapter
+            Log.d("xyz", "getAll observer notified")
+
+        }
+        fRep.getAll().observe(this, getAllObserver)
+
+        lvFriendList.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ -> onFriendClick(pos)}
+
+
+
+    }
+
+    private fun test(s: Serializable){
+
     }
 
     private fun onFriendClick(pos: Int) {
-        val clickedFriend = lvFriendList.getItemAtPosition(pos) as Friend
+        val clickedFriend = lvFriendList.getItemAtPosition(pos) as BeFriend
         println(clickedFriend.name)
+        val intent = Intent(this, FriendActivity::class.java).apply {
+            putExtra("clicked", clickedFriend)
+        }
         val b = Bundle()
         b.putString("name",clickedFriend.name)
         b.putString("phone",clickedFriend.phone)
         b.putBoolean("bestFriend",clickedFriend.bestFriend)
         b.putInt("id",clickedFriend.id)
-        startFriendActivity(b)
+        startActivity(intent)
+    }
+
+    private fun onClickPerson(listView: AdapterView<*>, pos: Int) {
+        val f = listView.getItemAtPosition(pos) as BeFriend
+        Toast.makeText(this, "You have clicked ${f.name} at position $pos", Toast.LENGTH_LONG).show()
+    }
+
+    fun onClickClear(view: View) {
+        val mRep = FriendRepoInDB.get()
+        mRep.clear()
     }
 
     private fun startFriendActivity(b: Bundle) {
@@ -49,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(newIntent)
     }
 
-    internal class ListAdapter(context: Context, private val friends : Array<Friend>) : ArrayAdapter<Friend>(context, 0, friends){
+    internal class CustomListAdapter(context: Context, private val friends: List<BeFriend>) : ArrayAdapter<BeFriend>(context, 0, friends){
 
         private val colours = intArrayOf(
             Color.parseColor("#AAAAAA"),
@@ -68,12 +121,18 @@ class MainActivity : AppCompatActivity() {
             val imageView = resView.findViewById<ImageView>(R.id.profile_image)
             val nameView = resView.findViewById<TextView>(R.id.personName)
             val phoneNumber = resView.findViewById<TextView>(R.id.phoneNumber)
+            val bestFriend = resView.findViewById<TextView>(R.id.isBestFriend)
             nameView.text = f.name
             phoneNumber.text = f.phone
+            if (f.bestFriend){
+                bestFriend.text = "Best Friend"
+            } else {
+                bestFriend.text = "Friend"
+            }
 
 
             return resView
         }
     }
 
-}
+
