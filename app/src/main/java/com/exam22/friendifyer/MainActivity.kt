@@ -24,25 +24,26 @@ class MainActivity : AppCompatActivity(), Serializable {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
+
     }
 
     override fun onResume() {
         super.onResume()
-        insertTestData()
+        setupDataObserver()
     }
 
-    private fun insertTestData(){
+    private fun insertTestData() {
         var hasRun = false
-        if(hasRun == false) {
+        if (hasRun == false) {
             val fRep = FriendRepoInDB.get()
             fRep.clear()
-            fRep.insert(BeFriend(0,"Thyregod","63499037", false))
-            fRep.insert(BeFriend(0,"Dundvig","40832243", true))
-            fRep.insert(BeFriend(0,"Grasland","78914416", true))
-            fRep.insert(BeFriend(0,"Peder","88467811", false))
-            fRep.insert(BeFriend(0,"Aben","57382219", false))
-            fRep.insert(BeFriend(0,"Mikael","20579997", false))
-            fRep.insert(BeFriend(0,"Quapper","60272387", true))
+            fRep.insert(BeFriend(0, "Thyregod", "63499037", false))
+            fRep.insert(BeFriend(0, "Dundvig", "40832243", true))
+            fRep.insert(BeFriend(0, "Grasland", "78914416", true))
+            fRep.insert(BeFriend(0, "Peder", "88467811", false))
+            fRep.insert(BeFriend(0, "Aben", "57382219", false))
+            fRep.insert(BeFriend(0, "Mikael", "20579997", false))
+            fRep.insert(BeFriend(0, "Quapper", "60272387", true))
             hasRun = true
         }
     }
@@ -51,23 +52,24 @@ class MainActivity : AppCompatActivity(), Serializable {
     private fun setupDataObserver() {
 
         val fRep = FriendRepoInDB.get()
-        val getAllObserver = Observer<List<BeFriend>>{ f ->
+        val getAllObserver = Observer<List<BeFriend>> { f ->
             val adapter: ListAdapter = CustomListAdapter(
                 this,
-                f)
+                f
+            )
             lvFriendList.adapter = adapter
             Log.d("xyz", "getAll observer notified")
 
         }
         fRep.getAll().observe(this, getAllObserver)
 
-        lvFriendList.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ -> onFriendClick(pos)}
-
+        lvFriendList.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, pos, _ -> onFriendClick(pos) }
 
 
     }
 
-    private fun test(s: Serializable){
+    private fun test(s: Serializable) {
 
     }
 
@@ -78,16 +80,17 @@ class MainActivity : AppCompatActivity(), Serializable {
             putExtra("clicked", clickedFriend)
         }
         val b = Bundle()
-        b.putString("name",clickedFriend.name)
-        b.putString("phone",clickedFriend.phone)
-        b.putBoolean("bestFriend",clickedFriend.bestFriend)
-        b.putInt("id",clickedFriend.id)
+        b.putString("name", clickedFriend.name)
+        b.putString("phone", clickedFriend.phone)
+        b.putBoolean("bestFriend", clickedFriend.bestFriend)
+        b.putInt("id", clickedFriend.id)
         startActivity(intent)
     }
 
     private fun onClickPerson(listView: AdapterView<*>, pos: Int) {
         val f = listView.getItemAtPosition(pos) as BeFriend
-        Toast.makeText(this, "You have clicked ${f.name} at position $pos", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "You have clicked ${f.name} at position $pos", Toast.LENGTH_LONG)
+            .show()
     }
 
     fun onClickClear(view: View) {
@@ -101,7 +104,8 @@ class MainActivity : AppCompatActivity(), Serializable {
         startActivity(newIntent)
     }
 
-    internal class CustomListAdapter(context: Context, private val friends: List<BeFriend>) : ArrayAdapter<BeFriend>(context, 0, friends){
+    internal class CustomListAdapter(context: Context, private val friends: List<BeFriend>) :
+        ArrayAdapter<BeFriend>(context, 0, friends) {
 
         private val colours = intArrayOf(
             Color.parseColor("#AAAAAA"),
@@ -123,7 +127,7 @@ class MainActivity : AppCompatActivity(), Serializable {
             val bestFriend = resView.findViewById<TextView>(R.id.isBestFriend)
             nameView.text = f.name
             phoneNumber.text = f.phone
-            if (f.bestFriend){
+            if (f.bestFriend) {
                 bestFriend.text = "Best Friend"
             } else {
                 bestFriend.text = "Friend"
@@ -133,5 +137,6 @@ class MainActivity : AppCompatActivity(), Serializable {
             return resView
         }
     }
+}
 
 
