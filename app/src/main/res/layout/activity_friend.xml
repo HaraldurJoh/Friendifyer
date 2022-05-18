@@ -197,6 +197,7 @@
                     android:text="Confirm Edit?"
                     android:textSize="12sp" />
                 <Button
+                    android:id="@+id/btnEditFriend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="OnEditClick"

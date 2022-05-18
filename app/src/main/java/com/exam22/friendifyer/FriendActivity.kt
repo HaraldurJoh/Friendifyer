@@ -7,13 +7,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.view.View
 import com.exam22.friendifyer.Data.BeFriend
+import com.exam22.friendifyer.Data.FriendRepoInDB
 import kotlinx.android.synthetic.main.activity_friend.*
 import java.io.Serializable
 
 class FriendActivity : AppCompatActivity(), Serializable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        print("this is working")
         setContentView(R.layout.activity_friend)
         var selectFriend: BeFriend =  intent.getSerializableExtra("clicked") as BeFriend
 
@@ -32,6 +32,8 @@ class FriendActivity : AppCompatActivity(), Serializable {
 
         btnCallFriend.setOnClickListener{ onClickCall(selectFriend) }
         btnSMSFriend.setOnClickListener { onClickSms(selectFriend) }
+        btnEditFriend.setOnClickListener { onEditClick(selectFriend)}
+
     }
 
     private fun onClickCall(selectFriend: BeFriend) {
@@ -48,11 +50,24 @@ class FriendActivity : AppCompatActivity(), Serializable {
         startActivity(sendIntent)
     }
 
-    fun OnEditClick(view: View) {
+    fun onEditClick(selectFriend: BeFriend) {
+        var newFriendInfo = selectFriend
+        newFriendInfo.name = tf_name.text.toString()
+        newFriendInfo.phone = tf_phone.text.toString()
+        newFriendInfo.bestFriend = tf_bestFriend.text.toString() == "yes"
+        editFriend(newFriendInfo)
+    }
+
+
+    fun editFriend(friend: BeFriend){
+        FriendRepoInDB.initialize(this)
+        var fRep = FriendRepoInDB.get()
+        fRep.update(friend)
 
     }
 
 
     fun onPhotoClick(view: View) {}
+    fun OnEditClick(view: View) {}
 }
 

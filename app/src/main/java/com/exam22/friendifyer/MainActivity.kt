@@ -24,17 +24,11 @@ class MainActivity : AppCompatActivity(), Serializable {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
-        insertTestData()
-        /*val fRep = FriendRepoInDB.get()
-        val listOfFriend = fRep.getAll().value
-        val adapterTwo = CustomListAdapter(this, listOfFriend)
+    }
 
-        lvFriendList.adapter = adapterTwo
-        lvFriendList.isClickable
-        lvFriendList.setOnItemClickListener{_,_,pos, _ -> onFriendClick(pos)}
-        */
+    override fun onResume() {
+        super.onResume()
         setupDataObserver()
-
     }
 
     private fun insertTestData(){
@@ -51,16 +45,6 @@ class MainActivity : AppCompatActivity(), Serializable {
             fRep.insert(BeFriend(0,"Quapper","60272387", true))
             hasRun = true
         }
-
-        /*
-        Friend(1,"Thyregod","63499037", false),
-        Friend(2,"Dundvig","40832243", true),
-        Friend(3, "Grasland","78914416", true),
-        Friend(4,"Peder","88467811", false),
-        Friend(5,"Aben","57382219", false),
-        Friend(6,"Mikael","20579997", false),
-        Friend(7,"Quapper","60272387", true)
-         */
     }
 
 
