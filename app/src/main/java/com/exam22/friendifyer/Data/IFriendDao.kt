@@ -11,7 +11,7 @@ interface IFriendDao {
     @Query("SELECT * from BeFriend order by id")
     fun getAll(): LiveData<List<BeFriend>>
 
-    @Query("SELECT * from BeFriend order by name")
+    @Query("SELECT * from BeFriend order by (:s)")
     fun getByName(s:String): LiveData<List<BeFriend>>
 
     @Query("SELECT name from befriend order by name")
