@@ -4,19 +4,20 @@ package com.exam22.friendifyer
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.ContextMenu.ContextMenuInfo
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.exam22.friendifyer.Data.BeFriend
 import com.exam22.friendifyer.Data.FriendRepoInDB
+import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
 import java.util.*
-import androidx.lifecycle.Observer
+
 
 class MainActivity : AppCompatActivity(), Serializable {
 
@@ -24,7 +25,21 @@ class MainActivity : AppCompatActivity(), Serializable {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.nav_delete->Toast.makeText(this, "People", Toast.LENGTH_SHORT).show()
+            R.id.nav_favorite->Toast.makeText(this, "favorite", Toast.LENGTH_SHORT).show()
+            R.id.nav_edit->Toast.makeText(this, "edit", Toast.LENGTH_SHORT).show()
+            R.id.nav_create->Toast.makeText(this, "create", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -132,7 +147,6 @@ class MainActivity : AppCompatActivity(), Serializable {
             } else {
                 bestFriend.text = "Friend"
             }
-
 
             return resView
         }
