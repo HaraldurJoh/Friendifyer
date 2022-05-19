@@ -87,8 +87,8 @@ class CameraActivity : AppCompatActivity() {
 
         val outputOptions = ImageCapture.OutputFileOptions
             .Builder(contentResolver,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            contentValues)
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues)
             .build()
 
         imageCapture.takePicture(
@@ -130,7 +130,7 @@ class CameraActivity : AppCompatActivity() {
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(viewFinder.surfaceProvider)
+                    it.setSurfaceProvider(viewFinder.createSurfaceProvider())
                 }
 
             imageCapture = ImageCapture.Builder()
@@ -183,33 +183,33 @@ class CameraActivity : AppCompatActivity() {
                     add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }
             }.toTypedArray()
-        }
+    }
 
-        override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<String>, grantResults:
-            IntArray) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            if (requestCode == REQUEST_CODE_PERMISSIONS) {
-                if (allPermissionsGranted()) {
-                    startCamera()
-                }else {
-                    Toast.makeText(this,
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                startCamera()
+            }else {
+                Toast.makeText(this,
                     "Permissions not granted by the user,",
                     Toast.LENGTH_SHORT).show()
-                    finish()
-                }
+                finish()
             }
         }
-        
-        private fun onClickExit() {
-            if (!picturePath.contentEquals("")) {
-                picturePath = ""
-                takenPicture.visibility = View.INVISIBLE
-                viewFinder.visibility = View.VISIBLE
-                btnSavePhoto.visibility = View.VISIBLE
-            } else {
-                finish() 
-            } 
-        } 
     }
+
+    private fun onClickExit() {
+        if (!picturePath.contentEquals("")) {
+            picturePath = ""
+            takenPicture.visibility = View.INVISIBLE
+            viewFinder.visibility = View.VISIBLE
+            btnSavePhoto.visibility = View.VISIBLE
+        } else {
+            finish()
+        }
+    }
+}
 
