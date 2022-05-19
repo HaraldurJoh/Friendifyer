@@ -2,6 +2,7 @@ package com.exam22.friendifyer.Data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.room.Query
 import com.exam22.friendifyer.models.Friend
 
 
