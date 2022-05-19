@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), Serializable {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
-        insertTestData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
