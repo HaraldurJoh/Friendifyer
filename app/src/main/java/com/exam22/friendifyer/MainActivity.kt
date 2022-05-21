@@ -21,10 +21,13 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), Serializable {
 
+    var deleteMode: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FriendRepoInDB.initialize(this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -34,10 +37,11 @@ class MainActivity : AppCompatActivity(), Serializable {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.nav_delete->Toast.makeText(this, "People", Toast.LENGTH_SHORT).show()
+            R.id.nav_delete-> switchDeleteMode()
             R.id.nav_favorite->Toast.makeText(this, "favorite", Toast.LENGTH_SHORT).show()
             R.id.nav_edit->Toast.makeText(this, "edit", Toast.LENGTH_SHORT).show()
-            R.id.nav_create->Toast.makeText(this, "create", Toast.LENGTH_SHORT).show()
+            R.id.nav_create -> startaddFriendActivity()
+            //R.id.nav_create->Toast.makeText(this, "create", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -63,6 +67,15 @@ class MainActivity : AppCompatActivity(), Serializable {
         }
     }
 
+    private fun switchDeleteMode(){
+        if (deleteMode) {
+            deleteMode = false
+            Toast.makeText(this,"Select Mode",Toast.LENGTH_SHORT).show()
+        } else {
+            deleteMode = true
+            Toast.makeText(this,"Delete Mode",Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun setupDataObserver() {
 
@@ -79,9 +92,19 @@ class MainActivity : AppCompatActivity(), Serializable {
         fRep.getAll().observe(this, getAllObserver)
 
         lvFriendList.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, pos, _ -> onFriendClick(pos) }
+            AdapterView.OnItemClickListener { _, _, pos, _ -> executeBasedOnMode(pos) }
 
 
+    }
+
+    private fun executeBasedOnMode(pos: Int){
+        if (deleteMode){
+            val fRep = FriendRepoInDB.get()
+            val clickedFriend = lvFriendList.getItemAtPosition(pos) as BeFriend
+            fRep.delete(clickedFriend)
+        } else {
+            onFriendClick(pos)
+        }
     }
 
     private fun test(s: Serializable) {
@@ -99,6 +122,11 @@ class MainActivity : AppCompatActivity(), Serializable {
         b.putString("phone", clickedFriend.phone)
         b.putBoolean("bestFriend", clickedFriend.bestFriend)
         b.putInt("id", clickedFriend.id)
+        startActivity(intent)
+    }
+
+    private fun startaddFriendActivity(){
+        val intent = Intent(this, AddFriendActivity::class.java)
         startActivity(intent)
     }
 
